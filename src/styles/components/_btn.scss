@@ -1,0 +1,25 @@
+.btn {
+	background: $blue;
+	border: none;
+	color: white;
+	display: inline-block;
+	font-size: $l-font-size;
+	font-weight: 300;
+	line-height: 1;
+	padding: $s-size;
+	text-decoration: none;
+}
+
+.btn--link {
+	background: none;
+}
+
+.btn--secondary-inline {
+	background: #888;
+	margin-bottom: $m-size;
+	@media (min-width: $desktop-breakpoint) {
+		position: relative;
+		top: -$l-font-size - (2 * $s-size) - $m-size;
+		float: right;
+	}
+}
