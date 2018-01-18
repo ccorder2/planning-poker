@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startSetEstimate } from '../actions/work-items';
+import { startSetEstimate } from '../actions/selected-work-item';
 
 export class PokerCard extends React.Component {
 	onClick = () => {

@@ -11,6 +11,7 @@ import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import { startSetWorkItems } from './actions/work-items';
 import { startSetDeck } from './actions/deck';
+import { startSetSelectedWorkItem } from './actions/selected-work-item';
 
 const store = configureStore();
 

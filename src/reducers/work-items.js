@@ -14,19 +14,6 @@ export default (state = workItemsReducerDefaultState, action) => {
 					};
 				}
 			});
-		case 'SET_ESTIMATE':
-			return state.map(item => {
-				if (item.id === action.wiid) {
-					return {
-						...item,
-						effort: Object.assign(item.effort || {}, {
-							[action.uid]: action.estimate
-						})
-					};
-				} else {
-					return item;
-				}
-			});
 		case 'SET_WORK_ITEMS':
 			return action.workItems;
 		default:
