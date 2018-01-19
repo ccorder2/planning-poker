@@ -8,9 +8,19 @@ export class PokerCard extends React.Component {
 	};
 	render() {
 		return (
-			<div key={this.props.card} onClick={this.onClick}>
-				<span>{this.props.card}</span>
-				<span>{this.props.card}</span>
+			<div className="card">
+				{this.props.isVisibile ? (
+					<div
+						className="card--show"
+						key={this.props.card}
+						onClick={this.onClick}
+					>
+						<span className="card-top">{this.props.card}</span>
+						<span className="card-main">{this.props.card}</span>
+					</div>
+				) : (
+					<div>back of card</div>
+				)}
 			</div>
 		);
 	}

@@ -10,16 +10,16 @@ export class PokerBoardHeader extends React.Component {
 		return (
 			<div>
 				{!!this.props.selectedWorkItem.id ? (
-					<div>
-						<div>
-							{this.props.selectedWorkItem.number}
-							-
+					<div className="list-item">
+						<h3>
+							{this.props.selectedWorkItem.number} -{' '}
 							{this.props.selectedWorkItem.title}
-						</div>
-						<div>{this.props.selectedWorkItem.description}</div>
+						</h3>
 					</div>
 				) : (
-					<div>No selected work item</div>
+					<div className="list-item list-item--message">
+						No selected work item
+					</div>
 				)}
 			</div>
 		);

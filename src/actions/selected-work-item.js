@@ -1,5 +1,21 @@
 import database from '../firebase/firebase';
 
+// CLEAR_ESTIMATES
+export const clearEstimates = () => ({
+	type: 'CLEAR_ESTIMATES'
+});
+
+export const startClearEstimates = () => {
+	return (dispatch, getState) => {
+		return database
+			.ref(`selectedWorkItem/effort`)
+			.set({})
+			.then(snapshot => {
+				dispatch(clearEstimates());
+			});
+	};
+};
+
 // SET_SELECTED_WORK_ITEM
 export const setSelectedWorkItem = workItem => ({
 	type: 'SET_SELECTED_WORK_ITEM',
@@ -28,24 +44,36 @@ export const startSetSelectedWorkItem = (id = -1) => {
 };
 
 // SET_ESTIMATE
-export const setEstimate = (uid, wiid, estimate) => ({
+export const setEstimate = (uid, estimate) => ({
 	type: 'SET_ESTIMATE',
 	uid,
-	wiid,
 	estimate
 });
 
 export const startSetEstimate = estimate => {
 	return (dispatch, getState) => {
 		const uid = getState().auth.uid;
-		const wiid = getState().selectedWorkItem.id;
-		if (wiid) {
-			return database
-				.ref(`selectedWorkItem/effort/${uid}`)
-				.set(estimate)
-				.then(snapshot => {
-					dispatch(setEstimate(uid, wiid, estimate));
-				});
-		}
+		return database
+			.ref(`selectedWorkItem/effort/${uid}`)
+			.set(estimate)
+			.then(snapshot => {
+				dispatch(setEstimate(uid, estimate));
+			});
+	};
+};
+
+// TOGGLE_VISIBILITY
+export const toggleVisibility = () => ({
+	type: 'TOGGLE_VISIBILITY'
+});
+
+export const startToggleVisibility = () => {
+	return (dispatch, getState) => {
+		return database
+			.ref(`selectedWorkItem/showEffort/flag`)
+			.set(!getState().selectedWorkItem.showEffort.flag)
+			.then(snapshot => {
+				dispatch(toggleVisibility());
+			});
 	};
 };

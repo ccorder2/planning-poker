@@ -4,7 +4,11 @@ import selectDeck from './../selectors/deck';
 import PokerCard from './../components/PokerCard';
 
 export const Deck = props => (
-	<div>{props.deck.map(card => <PokerCard key={card} card={card} />)}</div>
+	<div className="game-layout__estimates--deck">
+		{props.deck.map(card => (
+			<PokerCard key={card} card={card} isVisibile={true} />
+		))}
+	</div>
 );
 
 const mapStateToProps = state => ({

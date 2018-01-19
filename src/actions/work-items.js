@@ -12,7 +12,8 @@ export const startAddWorkItem = (workItemData = {}) => {
 			number = 0,
 			title = '',
 			description = '',
-			effort = {}
+			effort = {},
+			showEffort = { flag: false }
 		} = workItemData;
 
 		const workItem = { number, title, description, effort };

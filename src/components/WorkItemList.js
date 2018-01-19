@@ -5,17 +5,21 @@ import selectWorkItems from './../selectors/work-items';
 
 export const WorkItemList = props => (
 	<div>
-		<div>
+		<div className="list-header">
 			<div>Work Item</div>
 			<div>Effort</div>
 		</div>
-		{props.workItems.length === 0 ? (
-			<div>
-				<span>No expenses </span>
-			</div>
-		) : (
-			props.workItems.map(item => <WorkItemListItem key={item.id} {...item} />)
-		)}
+		<div className="list-body">
+			{props.workItems.length === 0 ? (
+				<div className="list-item list-item--message">
+					<span>No work items</span>
+				</div>
+			) : (
+				props.workItems.map(item => (
+					<WorkItemListItem key={item.id} {...item} />
+				))
+			)}
+		</div>
 	</div>
 );
 
