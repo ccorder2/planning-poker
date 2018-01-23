@@ -38,6 +38,18 @@ export const startSetSelectedWorkItem = (gameId, id = -1) => {
 			return database
 				.ref(`games/${gameId}/selectedWorkItem`)
 				.on('value', snapshot => {
+					if (snapshot.val().showEffort.flag) {
+						if (!!snapshot.val().effort) {
+							database
+								.ref(`games/${gameId}/workItems/${snapshot.val().id}/effort`)
+								.set(snapshot.val().effort)
+								.then(content => {
+									dispatch(
+										setEffort(gameId, snapshot.val().id, snapshot.val().effort)
+									);
+								});
+						}
+					}
 					dispatch(
 						setSelectedWorkItem(gameId, {
 							...snapshot.val()
@@ -60,24 +72,6 @@ export const startSetEstimate = (gameId, estimate) => {
 	return (dispatch, getState) => {
 		const uid = getState().auth.uid;
 
-		database
-			.ref(`games/${gameId}/selectedWorkItem`)
-			.once('value')
-			.then(snapshot => {
-				const selectedWorkItem = snapshot.val();
-				if (selectedWorkItem.showEffort.flag) {
-					const effort = { ...selectedWorkItem.effort, [uid]: estimate };
-					database
-						.ref(
-							`games/${gameId}/workItems/${selectedWorkItem.id}/effort/${uid}`
-						)
-						.set(estimate)
-						.then(snapshot => {
-							dispatch(setEffort(gameId, selectedWorkItem.id, effort));
-						});
-				}
-			});
-
 		return database
 			.ref(`games/${gameId}/selectedWorkItem/effort/${uid}`)
 			.set(estimate)
@@ -97,16 +91,7 @@ export const startToggleVisibility = gameId => {
 	return (dispatch, getState) => {
 		const selectedWorkItem = getState().games.find(game => game.id === gameId)
 			.selectedWorkItem;
-		if (!selectedWorkItem.showEffort.flag) {
-			database
-				.ref(`games/${gameId}/workItems/${selectedWorkItem.id}/effort`)
-				.set(selectedWorkItem.effort)
-				.then(snapshot => {
-					dispatch(
-						setEffort(gameId, selectedWorkItem.id, selectedWorkItem.effort)
-					);
-				});
-		}
+
 		return database
 			.ref(`games/${gameId}/selectedWorkItem/showEffort/flag`)
 			.set(!selectedWorkItem.showEffort.flag)

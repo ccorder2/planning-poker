@@ -35,10 +35,11 @@ export class PokerCard extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-	isSelected:
-		state.games.find(game => game.id === props.gameId).selectedWorkItem.effort[
-			state.auth.uid
-		] === props.card
+	isSelected: !!state.games.find(game => game.id === props.gameId)
+		.selectedWorkItem.effort
+		? state.games.find(game => game.id === props.gameId).selectedWorkItem
+				.effort[state.auth.uid] === props.card
+		: false
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
