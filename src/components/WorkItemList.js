@@ -16,16 +16,22 @@ export const WorkItemList = props => (
 				</div>
 			) : (
 				props.workItems.map(item => (
-					<WorkItemListItem key={item.id} {...item} />
+					<WorkItemListItem
+						key={item.id}
+						gameId={props.gameId}
+						deck={props.deck}
+						{...item}
+					/>
 				))
 			)}
 		</div>
 	</div>
 );
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
 	return {
-		workItems: selectWorkItems(state.workItems)
+		workItems: selectWorkItems(state.games, props.gameId),
+		deck: state.games.find(game => game.id === props.gameId).deck
 	};
 };
 

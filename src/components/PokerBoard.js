@@ -22,8 +22,10 @@ export const PokerBoard = props => (
 					return (
 						<PokerCard
 							key={index}
+							gameId={props.gameId}
 							card={estimate[1]}
-							isVisibile={props.selectedWorkItem.showEffort.flag}
+							isVisible={props.selectedWorkItem.showEffort.flag}
+							allowClick={false}
 						/>
 					);
 				})}
@@ -31,13 +33,14 @@ export const PokerBoard = props => (
 	</div>
 );
 
-const mapStateToProps = state => ({
-	selectedWorkItem: state.selectedWorkItem
+const mapStateToProps = (state, props) => ({
+	selectedWorkItem: state.games.find(game => game.id === props.gameId)
+		.selectedWorkItem
 });
 
-const mapDispatchToProps = dispatch => ({
-	startToggleVisibility: () => dispatch(startToggleVisibility()),
-	startClearEstimates: () => dispatch(startClearEstimates())
+const mapDispatchToProps = (dispatch, props) => ({
+	startToggleVisibility: () => dispatch(startToggleVisibility(props.gameId)),
+	startClearEstimates: () => dispatch(startClearEstimates(props.gameId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PokerBoard);

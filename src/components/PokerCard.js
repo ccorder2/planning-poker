@@ -4,12 +4,20 @@ import { startSetEstimate } from '../actions/selected-work-item';
 
 export class PokerCard extends React.Component {
 	onClick = () => {
-		this.props.startSetEstimate(this.props.card);
+		if (this.props.allowClick) {
+			this.props.startSetEstimate(this.props.card);
+		}
 	};
 	render() {
 		return (
-			<div className="card">
-				{this.props.isVisibile ? (
+			<div
+				className={
+					this.props.isSelected && this.props.allowClick
+						? 'card card--selected'
+						: 'card'
+				}
+			>
+				{this.props.isVisible ? (
 					<div
 						className="card--show"
 						key={this.props.card}
@@ -26,8 +34,15 @@ export class PokerCard extends React.Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch, props) => ({
-	startSetEstimate: data => dispatch(startSetEstimate(data))
+const mapStateToProps = (state, props) => ({
+	isSelected:
+		state.games.find(game => game.id === props.gameId).selectedWorkItem.effort[
+			state.auth.uid
+		] === props.card
 });
 
-export default connect(undefined, mapDispatchToProps)(PokerCard);
+const mapDispatchToProps = (dispatch, props) => ({
+	startSetEstimate: data => dispatch(startSetEstimate(props.gameId, data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokerCard);

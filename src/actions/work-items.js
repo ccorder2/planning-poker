@@ -57,3 +57,11 @@ export const startSetWorkItems = () => {
 			});
 	};
 };
+
+// SET_EFFORT
+export const setEffort = (gameId, wiid, effort) => ({
+	type: 'SET_EFFORT',
+	gameId,
+	wiid,
+	effort
+});

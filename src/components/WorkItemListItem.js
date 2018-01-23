@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startSetSelectedWorkItem } from '../actions/selected-work-item';
+import calculateEffort from '../selectors/work-item-effort';
 
 export class WorkItemListItem extends React.Component {
 	onClick = () => {
@@ -17,10 +18,7 @@ export class WorkItemListItem extends React.Component {
 				</div>
 				<h4 className="list-item__data">
 					{!!this.props.effort
-						? Object.entries(this.props.effort).reduce(
-								(sum, value) => sum + value[1],
-								0
-							) / Object.entries(this.props.effort).length
+						? calculateEffort(this.props.effort, this.props.deck)
 						: '_'}
 				</h4>
 			</div>
@@ -29,7 +27,8 @@ export class WorkItemListItem extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-	startSetSelectedWorkItem: data => dispatch(startSetSelectedWorkItem(data))
+	startSetSelectedWorkItem: data =>
+		dispatch(startSetSelectedWorkItem(props.gameId, data))
 });
 
 export default connect(undefined, mapDispatchToProps)(WorkItemListItem);

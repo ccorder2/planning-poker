@@ -6,13 +6,19 @@ import PokerCard from './../components/PokerCard';
 export const Deck = props => (
 	<div className="game-layout__estimates--deck">
 		{props.deck.map(card => (
-			<PokerCard key={card} card={card} isVisibile={true} />
+			<PokerCard
+				key={card}
+				gameId={props.gameId}
+				card={card}
+				isVisible={true}
+				allowClick={true}
+			/>
 		))}
 	</div>
 );
 
-const mapStateToProps = state => ({
-	deck: selectDeck(state.deck)
+const mapStateToProps = (state, props) => ({
+	deck: selectDeck(state.games.find(game => game.id === props.gameId).deck)
 });
 
 export default connect(mapStateToProps)(Deck);

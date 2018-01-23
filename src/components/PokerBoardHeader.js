@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { startSetSelectedWorkItem } from '../actions/selected-work-item';
 
 export class PokerBoardHeader extends React.Component {
-	componentDidMount = () => {
-		this.props.startSetSelectedWorkItem(this.props.selectedWorkItem.id);
-	};
 	render() {
 		return (
 			<div>
@@ -26,29 +23,9 @@ export class PokerBoardHeader extends React.Component {
 	}
 }
 
-// export const PokerBoardHeader = props => (
-// 	<div>
-// 		{!!props.selectedWorkItem.id ? (
-// 			<div>
-// 				<div>
-// 					{props.selectedWorkItem.number}
-// 					-
-// 					{props.selectedWorkItem.title}
-// 				</div>
-// 				<div>{props.selectedWorkItem.description}</div>
-// 			</div>
-// 		) : (
-// 			<div>No selected work item</div>
-// 		)}
-// 	</div>
-// );
-
-const mapStateToProps = state => ({
-	selectedWorkItem: state.selectedWorkItem
+const mapStateToProps = (state, props) => ({
+	selectedWorkItem: state.games.find(game => game.id === props.gameId)
+		.selectedWorkItem
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
-	startSetSelectedWorkItem: data => dispatch(startSetSelectedWorkItem(data))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PokerBoardHeader);
+export default connect(mapStateToProps)(PokerBoardHeader);

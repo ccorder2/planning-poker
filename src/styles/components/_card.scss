@@ -16,6 +16,10 @@
 	flex-direction: column;
 }
 
+.card--selected {
+	margin-top: -$s-size;
+}
+
 .card-top {
 	margin: 0.4em;
 }
