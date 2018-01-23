@@ -5,8 +5,8 @@ import { startLogin } from '../actions/auth';
 export const LoginPage = ({ startLogin }) => (
 	<div className="box-layout">
 		<div className="box-layout__box">
-			<h1 className="box-layout__title">React App Boilerplate</h1>
-			<p>Tag line for the application.</p>
+			<h1 className="box-layout__title">Planning Poker</h1>
+			<p>Tool for estimating work items.</p>
 			<button className="btn" onClick={startLogin}>
 				Login with Google
 			</button>
