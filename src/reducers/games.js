@@ -50,8 +50,8 @@ export default (state = gamesReducerDefaultState, action) => {
 				...game,
 				workItems: objectToArray(game.workItems)
 			}));
-		case 'ADD_WORK_ITEM':
 		case 'SET_EFFORT':
+		case 'UPLOAD_WORK_ITEMS':
 			return state.map(game => {
 				if (game.id === action.gameId) {
 					return {

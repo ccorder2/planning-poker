@@ -5,13 +5,20 @@
 }
 
 .page-header__actions {
-	margin-top: $m-size;
+	margin-top: -$s-size;
+	display: flex;
+	justify-content: space-around;
+	border: 1px solid darken($off-white, 7%);
+	padding: 2em;
+	flex-direction: row;
 }
 
 .page-header__title {
-	margin: 0;
+	margin: $m-size 0 $l-size 0;
 	font-weight: 300;
+	font-size: $s-font-size;
 	span {
 		font-weight: 700;
+		font-size: $l-font-size;
 	}
 }

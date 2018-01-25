@@ -11,16 +11,13 @@ export class WorkItemListItem extends React.Component {
 		return (
 			<div className="list-item" onClick={this.onClick}>
 				<div>
-					<h4>
-						{this.props.number} - {this.props.title}
-					</h4>
-					<span className="list-item__subtitle">{this.props.description}</span>
+					{this.props.number} - {this.props.title}
 				</div>
-				<h4 className="list-item__data">
+				<div className="list-item__data">
 					{!!this.props.effort
 						? calculateEffort(this.props.effort, this.props.deck)
 						: '_'}
-				</h4>
+				</div>
 			</div>
 		);
 	}

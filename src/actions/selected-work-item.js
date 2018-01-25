@@ -10,8 +10,8 @@ export const clearEstimates = gameId => ({
 export const startClearEstimates = gameId => {
 	return (dispatch, getState) => {
 		return database
-			.ref(`games/${gameId}/selectedWorkItem/effort`)
-			.set({})
+			.ref(`games/${gameId}/selectedWorkItem/`)
+			.update({ showEffort: { flag: false }, effort: {} })
 			.then(snapshot => {
 				dispatch(clearEstimates(gameId));
 			});
@@ -38,7 +38,7 @@ export const startSetSelectedWorkItem = (gameId, id = -1) => {
 			return database
 				.ref(`games/${gameId}/selectedWorkItem`)
 				.on('value', snapshot => {
-					if (snapshot.val().showEffort.flag) {
+					if (!!snapshot.val() && snapshot.val().showEffort.flag) {
 						if (!!snapshot.val().effort) {
 							database
 								.ref(`games/${gameId}/workItems/${snapshot.val().id}/effort`)

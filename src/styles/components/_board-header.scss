@@ -1,0 +1,9 @@
+.board-header {
+	align-items: left;
+	padding: $m-size 0;
+}
+
+.board-header--message {
+	@extend .board-header;
+	color: $grey;
+}

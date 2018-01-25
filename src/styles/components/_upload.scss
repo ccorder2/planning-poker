@@ -1,0 +1,28 @@
+.upload-container {
+	overflow: hidden;
+	position: relative;
+	width: 17.5em;
+}
+.upload-container__input {
+	font-size: 2em;
+	size: 17.5em;
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+	color: transparent;
+	cursor: pointer;
+}
+.upload-container__btn {
+	@extend .btn;
+	width: 100%;
+	margin: 0px;
+}
+
+.upload-container-btn--message {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	display: block;
+	text-overflow: ellipsis;
+}

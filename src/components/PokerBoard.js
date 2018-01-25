@@ -8,6 +8,7 @@ import {
 
 export const PokerBoard = props => (
 	<div>
+		<hr />
 		<div className="game-layout__actions">
 			<button className="btn" onClick={props.startToggleVisibility}>
 				Flip Cards
@@ -16,8 +17,10 @@ export const PokerBoard = props => (
 				Clear
 			</button>
 		</div>
+		<hr />
 		<div className="game-layout__estimates">
-			{!!props.selectedWorkItem.effort &&
+			{!!props.selectedWorkItem &&
+				!!props.selectedWorkItem.effort &&
 				Object.entries(props.selectedWorkItem.effort).map((estimate, index) => {
 					return (
 						<PokerCard

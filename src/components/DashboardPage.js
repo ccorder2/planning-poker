@@ -28,30 +28,36 @@ export class DashboardPage extends React.Component {
 	};
 	render() {
 		return (
-			<div>
-				<div>
-					<h3>Actions</h3>
+			<div className="content-container">
+				<div className="page-header__title">
+					<span>Welcome to Planning Poker</span>
+					<br /> An agile estimating tool
 				</div>
-				<div>
-					<button className="btn" onClick={this.onClickAddGame}>
-						Create New Game
-					</button>
-				</div>
-				<div>
-					<input
-						type="text"
-						placeholder="Game ID"
-						maxLength={20}
-						value={this.state.gameId}
-						onChange={this.onGameIdChange}
-					/>
-					<button
-						disabled={this.state.isDisabled}
-						className="btn"
-						onClick={this.onClickJoinGame}
-					>
-						Join Game
-					</button>
+				<hr />
+				<h3>Use the following actions to get started...</h3>
+				<div className="page-header__actions">
+					<div>
+						<button className="btn" onClick={this.onClickAddGame}>
+							Create New Game
+						</button>
+					</div>
+					<div>
+						<input
+							type="text"
+							placeholder="Game ID"
+							className="text-input"
+							maxLength={20}
+							value={this.state.gameId}
+							onChange={this.onGameIdChange}
+						/>
+						<button
+							disabled={this.state.isDisabled}
+							className="btn"
+							onClick={this.onClickJoinGame}
+						>
+							Join Game
+						</button>
+					</div>
 				</div>
 			</div>
 		);

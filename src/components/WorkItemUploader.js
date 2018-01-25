@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import XLSX from 'xlsx';
-import 'normalize.css/normalize.css';
-import '../styles/styles.scss';
+import { startUploadWorkItems } from '../actions/work-items';
 
-class Exporter extends React.Component {
+export class WorkItemUploader extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -30,14 +29,11 @@ class Exporter extends React.Component {
 			let wb = XLSX.read(data, { type: 'binary' });
 			let json = XLSX.utils.sheet_to_json(wb.Sheets['Sheet1'], { range: 1 });
 			let results = json.map(obj => {
-				let { ID, ...result } = obj;
-				delete result['Work Item Type'];
-				delete result['State'];
-				result.number = ID;
-				result.showEffort = false;
+				let { ID, Title } = obj;
+				let result = { number: ID, title: Title, showEffort: false };
 				return result;
 			});
-			console.log(results);
+			this.props.startUploadWorkItems(results);
 		};
 		reader.readAsBinaryString(f);
 	};
@@ -53,6 +49,7 @@ class Exporter extends React.Component {
 					<input
 						type="file"
 						className="upload-container__input"
+						name="excelToJson"
 						hidden={!this.state.showFileInput}
 						onChange={this.onChange}
 					/>
@@ -62,11 +59,9 @@ class Exporter extends React.Component {
 	}
 }
 
-const jsx = (
-	<div>
-		<div>Hello World!</div>
-		<Exporter />
-	</div>
-);
+const mapDispatchToProps = (dispatch, props) => ({
+	startUploadWorkItems: workItems =>
+		dispatch(startUploadWorkItems(props.gameId, workItems))
+});
 
-ReactDOM.render(jsx, document.getElementById('app'));
+export default connect(undefined, mapDispatchToProps)(WorkItemUploader);

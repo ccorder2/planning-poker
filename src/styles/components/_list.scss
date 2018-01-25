@@ -1,6 +1,11 @@
+.list {
+	width: 17.5em;
+}
+
 .list-header {
 	background: $off-white;
-	border: 1px solid darken($off-white, 7%);
+	border: 2px solid darken($off-white, 7%);
+	border-bottom: none;
 	color: $grey;
 	display: flex;
 	justify-content: space-between;
@@ -8,21 +13,52 @@
 }
 
 .list-body {
-	margin-bottom: $m-size;
-	@media (min-width: $desktop-breakpoint) {
-		margin-bottom: $l-size;
+	width: 100%;
+	height: 30em;
+	overflow-y: overlay;
+	position: relative;
+	border: 1px solid darken($off-white, 7%);
+	&::-webkit-scrollbar {
+		width: 0em;
+		background: transparent;
+		overflow: visible;
+		border-radius: 4px;
+	}
+	&::-webkit-scrollbar-thumb {
+		overflow: visible;
+		border-radius: 4px;
+		background: rgba(0, 0, 0, 0.2);
+	}
+	&::-webkit-scrollbar-track-piece {
+		background: transparent;
+	}
+}
+.list-body--scrollbar {
+	position: absolute;
+	background: transparent;
+	height: 100%;
+	top: 0;
+	right: 0;
+	width: 0.4em;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	opacity: 1;
+	&:hover .list-body--scrollbar {
+		opacity: 0;
+		transition: all 0.5s;
+		-webkit-transition: all 0.5s;
 	}
 }
 
 .list-item {
 	border: 1px solid darken($off-white, 7%);
-	border-top: none;
 	color: $dark-grey;
 	display: flex;
 	flex-direction: column;
-	padding: $s-size;
+	padding: 0.7em;
 	text-decoration: none;
 	transition: background 0.3s ease;
+	align-self: flex-start;
 	&:hover {
 		background: $off-white;
 	}
@@ -30,7 +66,7 @@
 		align-items: center;
 		flex-direction: row;
 		justify-content: space-between;
-		padding: $m-size;
+		padding: 0.7em;
 	}
 }
 
@@ -38,26 +74,16 @@
 	align-items: center;
 	color: $grey;
 	justify-content: center;
-	padding: $m-size;
+	padding: 0.7em;
 	&:hover {
 		background: none;
 	}
 }
 
-.list-item__title {
-	margin: 0;
-	word-break: break-all;
-}
-
-.list-item__subtitle {
-	color: $grey;
-	font-size: $s-font-size;
-}
-
 .list-item__data {
-	margin: $s-size 0 0 0;
+	padding-left: 0.7em;
+	align-self: flex-start;
 	@media (min-width: $desktop-breakpoint) {
 		margin: 0;
-		padding-left: $s-size;
 	}
 }

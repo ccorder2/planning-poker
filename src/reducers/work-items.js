@@ -5,8 +5,6 @@ const workItemsReducerDefaultState = [];
 
 export default (state = workItemsReducerDefaultState, action) => {
 	switch (action.type) {
-		case 'ADD_WORK_ITEM':
-			return [...state, action.workItem];
 		case 'SET_EFFORT':
 			return state.map(item => {
 				if (item.id === action.wiid) {
@@ -15,6 +13,8 @@ export default (state = workItemsReducerDefaultState, action) => {
 					return item;
 				}
 			});
+		case 'UPLOAD_WORK_ITEMS':
+			return action.workItems;
 		default:
 			return state;
 	}

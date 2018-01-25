@@ -27,20 +27,24 @@ export class PokerCard extends React.Component {
 						<span className="card-main">{this.props.card}</span>
 					</div>
 				) : (
-					<div>back of card</div>
+					<div className="card--back" />
 				)}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state, props) => ({
-	isSelected: !!state.games.find(game => game.id === props.gameId)
-		.selectedWorkItem.effort
-		? state.games.find(game => game.id === props.gameId).selectedWorkItem
-				.effort[state.auth.uid] === props.card
-		: false
-});
+const mapStateToProps = (state, props) => {
+	let item = state.games.find(game => game.id === props.gameId)
+		.selectedWorkItem;
+	return {
+		isSelected:
+			!!item && !!item.effort
+				? state.games.find(game => game.id === props.gameId).selectedWorkItem
+						.effort[state.auth.uid] === props.card
+				: false
+	};
+};
 
 const mapDispatchToProps = (dispatch, props) => ({
 	startSetEstimate: data => dispatch(startSetEstimate(props.gameId, data))

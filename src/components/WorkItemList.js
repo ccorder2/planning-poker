@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import WorkItemListItem from './WorkItemListItem';
 import selectWorkItems from './../selectors/work-items';
+import WorkItemUploader from './WorkItemUploader';
 
 export const WorkItemList = props => (
-	<div>
+	<div className="list">
 		<div className="list-header">
 			<div>Work Item</div>
 			<div>Effort</div>
@@ -24,7 +25,13 @@ export const WorkItemList = props => (
 					/>
 				))
 			)}
+			<div className="list-body--scrollbar" />
 		</div>
+		{props.workItems.length === 0 ? (
+			<WorkItemUploader gameId={props.gameId} />
+		) : (
+			''
+		)}
 	</div>
 );
 

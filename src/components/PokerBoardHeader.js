@@ -6,17 +6,15 @@ export class PokerBoardHeader extends React.Component {
 	render() {
 		return (
 			<div>
-				{!!this.props.selectedWorkItem.id ? (
-					<div className="list-item">
+				{!!this.props.selectedWorkItem && !!this.props.selectedWorkItem.id ? (
+					<div className="board-header">
 						<h3>
 							{this.props.selectedWorkItem.number} -{' '}
 							{this.props.selectedWorkItem.title}
 						</h3>
 					</div>
 				) : (
-					<div className="list-item list-item--message">
-						No selected work item
-					</div>
+					<div className="board-header--message">No selected work item</div>
 				)}
 			</div>
 		);
