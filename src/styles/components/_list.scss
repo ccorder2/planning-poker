@@ -10,6 +10,8 @@
 	display: flex;
 	justify-content: space-between;
 	padding: $s-size $m-size;
+	font-weight: bold;
+	cursor: default;
 }
 
 .list-body {
@@ -59,6 +61,7 @@
 	text-decoration: none;
 	transition: background 0.3s ease;
 	align-self: flex-start;
+	cursor: default;
 	&:hover {
 		background: $off-white;
 	}
