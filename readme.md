@@ -15,7 +15,7 @@ This was created from a need at my current job, and as a way to test my newly le
 
 ---
 
-# Upload Fromat
+# Upload Format
 
 Current the upload is setup to work the version control we use at work (Team Foundation Server). We are able to simply export stories needing estimation to an excel file and upload it. The format of the excel file has to have two columns: ID, Title. The column header also have to be on the second row, not the first.
 
