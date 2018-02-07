@@ -1,6 +1,6 @@
 # Planning Poker
 
-This was created from a need at my current job, and as a way to test my newly learned Firebase, React, Redux, and Webpack skills. Planning Poker is a story estimating tool for agile/scrum software development. After logging in, you have the ability to create or join a game. There is no security outside of being an authenticated user. I am still brainstorming of a good way to implement more security without putting too much into user roles. If you create a game, the game ID is in the url and that can be shared with people you wish to have join your game. Once in the game, you have a one time ability to upload stories. There is no restriction as to playing the game once a user is in the game--no roles, no rules.
+This was created from a need at my current job, and as a way to test my newly learned Firebase, React, Redux, and Webpack skills. Planning Poker is a story estimating tool for agile/scrum software development. After logging in, you have the ability to create or join a game. There is no security outside of being an authenticated user. I am still brainstorming of a good way to implement more security without putting too much into user roles. If you create a game, the game ID is in the url and that can be shared with people you wish to have join your game. Once in the game, you have a one time ability to upload stories. There is no restriction as to playing the game once a user is in the game--no roles, no rules. You can visit the application [here](http://apps.planningpoker.caseycorder.com).
 
 ---
 
