@@ -6,18 +6,18 @@ This was created from a need at my current job, and as a way to test my newly le
 
 # Game Flow
 
-1. Upload an excel file with stories/work items.
-2. Select a work item to be estimated.
-3. Wait for everyone in the game to select a card.
-4. Flip cards to see if a consensus was met.
-5. Discuss if there was not a consensus.
-6. Flip the cards and select again.
+1.  Upload an excel file with stories/work items.
+2.  Select a work item to be estimated.
+3.  Wait for everyone in the game to select a card.
+4.  Flip cards to see if a consensus was met.
+5.  Discuss if there was not a consensus.
+6.  Flip the cards and select again.
 
 ---
 
 # Upload Format
 
-Current the upload is setup to work the version control we use at work (Team Foundation Server). We are able to simply export stories needing estimation to an excel file and upload it. The format of the excel file has to have two columns: ID, Title. The column header also have to be on the second row, not the first.
+Current the upload is setup to work the version control we use at work (Team Foundation Server). We are able to simply export stories needing estimation to an excel file and upload it. The format of the excel file has to have two columns: ID, Title. The header row needs to be on the second row, not the first, and all data to be imported should be below it.
 
 ---
 

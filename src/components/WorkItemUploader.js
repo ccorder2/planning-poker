@@ -42,9 +42,7 @@ export class WorkItemUploader extends React.Component {
 			<form onSubmit={this.onSubmit}>
 				<div className="upload-container">
 					<button className="upload-container__btn">
-						<span className="upload-container-btn--message">
-							{this.state.buttonText}
-						</span>
+						<span className="upload-container-btn--message">{this.state.buttonText}</span>
 					</button>
 					<input
 						type="file"
@@ -54,14 +52,17 @@ export class WorkItemUploader extends React.Component {
 						onChange={this.onChange}
 					/>
 				</div>
+				<div className="upload-message">
+					The format of the excel file has to have two columns: ID, Title. The header row needs to
+					be on the second row, not the first, and all data to be imported should be below it.
+				</div>
 			</form>
 		);
 	}
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-	startUploadWorkItems: workItems =>
-		dispatch(startUploadWorkItems(props.gameId, workItems))
+	startUploadWorkItems: workItems => dispatch(startUploadWorkItems(props.gameId, workItems))
 });
 
 export default connect(undefined, mapDispatchToProps)(WorkItemUploader);
