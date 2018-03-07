@@ -10,7 +10,21 @@
 	justify-content: space-around;
 	border: 1px solid darken($off-white, 7%);
 	padding: 2em;
+	flex-direction: column;
+}
+
+.page-header__actions-title {
+	margin-top: -5rem;
+	text-align: center;
+	width: auto;
+}
+
+.page-header__action-items {
+	@extend .page-header__actions;
+	border: unset;
 	flex-direction: row;
+	padding: 2rem 0rem;
+	width: 60rem;
 }
 
 .page-header__title {

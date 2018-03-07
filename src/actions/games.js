@@ -1,4 +1,5 @@
 import database from '../firebase/firebase';
+import moment from 'moment';
 
 // ADD_GAME
 export const addGame = game => ({
@@ -12,10 +13,14 @@ export const startAddGame = (gameData = {}) => {
 			deck = [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40],
 			players = [],
 			selectedWorkItem = {},
-			workItems = []
+			workItems = [],
+			createdBy = getState().auth.uid,
+			createdOn = moment().valueOf()
 		} = gameData;
 
-		const game = { deck, players, selectedWorkItem, workItems };
+		console.log(getState().auth);
+
+		const game = { deck, players, selectedWorkItem, workItems, createdBy, createdOn };
 
 		return database
 			.ref(`games`)
@@ -86,9 +91,7 @@ export const startSetGames = () => {
 					games.push({
 						id: game.key,
 						...game.val(),
-						players: !!game.val().players
-							? Object.values(game.val().players)
-							: []
+						players: !!game.val().players ? Object.values(game.val().players) : []
 					});
 				});
 

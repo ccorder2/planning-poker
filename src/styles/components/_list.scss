@@ -14,6 +14,11 @@
 	cursor: default;
 }
 
+.list-header-main {
+	@extend .list-header;
+	font-size: 1.8rem;
+}
+
 .list-body {
 	width: 100%;
 	max-height: 30em;
@@ -35,6 +40,12 @@
 		background: transparent;
 	}
 }
+.list-body-main {
+	@extend .list-body;
+	font-size: 1.4rem;
+	max-height: 25rem;
+	width: 60rem;
+}
 .list-body--scrollbar {
 	position: absolute;
 	background: transparent;
@@ -53,15 +64,15 @@
 }
 
 .list-item {
+	align-self: flex-start;
 	border: 1px solid darken($off-white, 7%);
 	color: $dark-grey;
+	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	padding: 0.7em;
 	text-decoration: none;
 	transition: background 0.3s ease;
-	align-self: flex-start;
-	cursor: default;
 	&:hover {
 		background: $off-white;
 	}
