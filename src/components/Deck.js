@@ -11,14 +11,15 @@ export const Deck = props => (
 				gameId={props.gameId}
 				card={card}
 				isVisible={true}
-				allowClick={true}
+				allowClick={props.allowClick}
 			/>
 		))}
 	</div>
 );
 
 const mapStateToProps = (state, props) => ({
-	deck: selectDeck(state.games.find(game => game.id === props.gameId).deck)
+	deck: selectDeck(state.games.find(game => game.id === props.gameId).deck),
+	allowClick: !!state.games.find(game => game.id === props.gameId).selectedWorkItem
 });
 
 export default connect(mapStateToProps)(Deck);

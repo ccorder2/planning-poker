@@ -18,8 +18,6 @@ export const startAddGame = (gameData = {}) => {
 			createdOn = moment().valueOf()
 		} = gameData;
 
-		console.log(getState().auth);
-
 		const game = { deck, players, selectedWorkItem, workItems, createdBy, createdOn };
 
 		return database

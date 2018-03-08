@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startSetEstimate, startToggleVisibility } from '../actions/selected-work-item';
+import { startSetEstimate, startShowCards } from '../actions/selected-work-item';
 
 export class PokerCard extends React.Component {
 	onClick = () => {
 		if (this.props.allowClick) {
 			this.props.startSetEstimate(this.props.card).then(() => {
 				if (this.props.allPlayersSelected && this.props.isVisible) {
-					this.props.startToggleVisibility();
+					this.props.startShowCards();
 				}
 			});
 		}
@@ -42,13 +42,13 @@ const mapStateToProps = (state, props) => {
 			!!game.selectedWorkItem.effort &&
 			!!game.players &&
 			Object.keys(game.players).length === Object.keys(game.selectedWorkItem.effort).length &&
-			!game.selectedWorkItem.showEffort.flag
+			!game.selectedWorkItem.showEffort
 	};
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
 	startSetEstimate: data => dispatch(startSetEstimate(props.gameId, data)),
-	startToggleVisibility: () => dispatch(startToggleVisibility(props.gameId))
+	startShowCards: () => dispatch(startShowCards(props.gameId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PokerCard);

@@ -9,6 +9,8 @@ export default (state = selectedWorkItemReducerDefaultState, action) => {
 			return action.workItem;
 		case 'SET_ESTIMATE':
 			return state;
+		case 'SHOW_CARDS':
+			return state;
 		case 'TOGGLE_VISIBILITY':
 			return state;
 		default:

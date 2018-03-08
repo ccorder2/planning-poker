@@ -9,6 +9,9 @@
 	padding: $s-size;
 	text-decoration: none;
 	margin: 0 0.4em 0 0;
+	&:disabled {
+		background: $grey;
+	}
 }
 
 .btn--link {

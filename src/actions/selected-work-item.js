@@ -11,7 +11,7 @@ export const startClearEstimates = gameId => {
 	return (dispatch, getState) => {
 		return database
 			.ref(`games/${gameId}/selectedWorkItem/`)
-			.update({ showEffort: { flag: false }, effort: {} })
+			.update({ showEffort: false, effort: {} })
 			.then(snapshot => {
 				dispatch(clearEstimates(gameId));
 			});
@@ -35,27 +35,23 @@ export const startSetSelectedWorkItem = (gameId, id = -1) => {
 			database.ref(`games/${gameId}/selectedWorkItem`).set(wi);
 			return wi;
 		} else {
-			return database
-				.ref(`games/${gameId}/selectedWorkItem`)
-				.on('value', snapshot => {
-					if (!!snapshot.val() && snapshot.val().showEffort.flag) {
-						if (!!snapshot.val().effort) {
-							database
-								.ref(`games/${gameId}/workItems/${snapshot.val().id}/effort`)
-								.set(snapshot.val().effort)
-								.then(content => {
-									dispatch(
-										setEffort(gameId, snapshot.val().id, snapshot.val().effort)
-									);
-								});
-						}
+			return database.ref(`games/${gameId}/selectedWorkItem`).on('value', snapshot => {
+				if (!!snapshot.val() && snapshot.val().showEffort) {
+					if (!!snapshot.val().effort) {
+						database
+							.ref(`games/${gameId}/workItems/${snapshot.val().id}/effort`)
+							.set(snapshot.val().effort)
+							.then(content => {
+								dispatch(setEffort(gameId, snapshot.val().id, snapshot.val().effort));
+							});
 					}
-					dispatch(
-						setSelectedWorkItem(gameId, {
-							...snapshot.val()
-						})
-					);
-				});
+				}
+				dispatch(
+					setSelectedWorkItem(gameId, {
+						...snapshot.val()
+					})
+				);
+			});
 		}
 	};
 };
@@ -81,6 +77,29 @@ export const startSetEstimate = (gameId, estimate) => {
 	};
 };
 
+// SHOW_CARDS
+export const showCards = gameId => ({
+	type: 'SHOW_CARDS',
+	gameId
+});
+
+export const startShowCards = gameId => {
+	return (dispatch, getState) => {
+		const selectedWorkItem = getState().games.find(game => game.id === gameId).selectedWorkItem;
+
+		return database
+			.ref(`games/${gameId}/selectedWorkItem/showEffort`)
+			.set(true)
+			.then(snapshot => {
+				dispatch(showCards(gameId));
+			});
+	};
+};
+
+/*
+ * !!!DEPRECATED!!!
+ * not used anymore
+ */
 // TOGGLE_VISIBILITY
 export const toggleVisibility = gameId => ({
 	type: 'TOGGLE_VISIBILITY',
@@ -89,12 +108,11 @@ export const toggleVisibility = gameId => ({
 
 export const startToggleVisibility = gameId => {
 	return (dispatch, getState) => {
-		const selectedWorkItem = getState().games.find(game => game.id === gameId)
-			.selectedWorkItem;
+		const selectedWorkItem = getState().games.find(game => game.id === gameId).selectedWorkItem;
 
 		return database
-			.ref(`games/${gameId}/selectedWorkItem/showEffort/flag`)
-			.set(!selectedWorkItem.showEffort.flag)
+			.ref(`games/${gameId}/selectedWorkItem/showEffort`)
+			.set(!selectedWorkItem.showEffort)
 			.then(snapshot => {
 				dispatch(toggleVisibility(gameId));
 			});

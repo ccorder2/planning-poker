@@ -1,16 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PokerCard from './PokerCard';
-import {
-	startClearEstimates,
-	startToggleVisibility
-} from '../actions/selected-work-item';
+import { startClearEstimates, startShowCards } from '../actions/selected-work-item';
 
 export const PokerBoard = props => (
 	<div>
 		<hr />
 		<div className="game-layout__actions">
-			<button className="btn" onClick={props.startToggleVisibility}>
+			<button
+				className="btn"
+				disabled={
+					!!props.selectedWorkItem && !!props.selectedWorkItem.id
+						? props.selectedWorkItem.showEffort
+						: true
+				}
+				onClick={props.startShowCards}
+			>
 				Flip Cards
 			</button>
 			<button className="btn" onClick={props.startClearEstimates}>
@@ -27,7 +32,7 @@ export const PokerBoard = props => (
 							key={index}
 							gameId={props.gameId}
 							card={estimate[1]}
-							isVisible={props.selectedWorkItem.showEffort.flag}
+							isVisible={props.selectedWorkItem.showEffort}
 							allowClick={false}
 						/>
 					);
@@ -37,12 +42,11 @@ export const PokerBoard = props => (
 );
 
 const mapStateToProps = (state, props) => ({
-	selectedWorkItem: state.games.find(game => game.id === props.gameId)
-		.selectedWorkItem
+	selectedWorkItem: state.games.find(game => game.id === props.gameId).selectedWorkItem
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-	startToggleVisibility: () => dispatch(startToggleVisibility(props.gameId)),
+	startShowCards: () => dispatch(startShowCards(props.gameId)),
 	startClearEstimates: () => dispatch(startClearEstimates(props.gameId))
 });
 
