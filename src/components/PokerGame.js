@@ -4,16 +4,15 @@ import Deck from './Deck';
 import PokerBoard from './PokerBoard';
 import PokerBoardHeader from './PokerBoardHeader';
 import WorkItemList from './WorkItemList';
-import { startJoinGame, startLeaveGame } from '../actions/games';
+import { startJoinGame } from '../actions/games';
 import { startSetSelectedWorkItem } from '../actions/selected-work-item';
 
 export class PokerGame extends React.Component {
 	componentDidMount = () => {
-		this.props.startJoinGame(this.props.game.id);
+		if (!this.props.isSpectator) {
+			this.props.startJoinGame(this.props.game.id);
+		}
 		this.props.startSetSelectedWorkItem(this.props.game.id);
-	};
-	componentWillUnmount = () => {
-		this.props.startLeaveGame(this.props.game.id);
 	};
 	render() {
 		return (
@@ -33,12 +32,14 @@ export class PokerGame extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-	game: state.games.find(({ id }) => id === props.match.params.id)
+	game: state.games.find(({ id }) => id === props.match.params.id),
+	isSpectator:
+		!!state.games.find(({ id }) => id === props.match.params.id).spectators &&
+		state.games.find(({ id }) => id === props.match.params.id).spectators.includes(state.auth.uid)
 });
 
 const mapDispatchToProps = dispatch => ({
 	startJoinGame: id => dispatch(startJoinGame(id)),
-	startLeaveGame: id => dispatch(startLeaveGame(id)),
 	startSetSelectedWorkItem: id => dispatch(startSetSelectedWorkItem(id, -1))
 });
 

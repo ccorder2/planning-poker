@@ -14,7 +14,8 @@ export default (pokerGames, uid) => {
 			});
 			return (
 				[].concat.apply([], arrays).includes(uid) ||
-				pokerGame.players.includes(uid) ||
+				(!!pokerGame.players && pokerGame.players.includes(uid)) ||
+				(!!pokerGame.spectator && pokerGame.spectator.includes(uid)) ||
 				pokerGame.createdBy == uid
 			);
 		})

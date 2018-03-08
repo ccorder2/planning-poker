@@ -70,6 +70,46 @@ export const startLeaveGame = id => {
 	};
 };
 
+// ADD_SPECTATOR
+export const addSpectator = (id, uid) => ({
+	type: 'ADD_SPECTATOR',
+	id,
+	uid
+});
+
+export const startAddSpectator = id => {
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid;
+
+		return database
+			.ref(`games/${id}/spectators/${uid}`)
+			.set(uid)
+			.then(ref => {
+				dispatch(addSpectator(id, uid));
+			});
+	};
+};
+
+// REMOVE_SPECTATOR
+export const removeSpectator = (id, uid) => ({
+	type: 'REMOVE_SPECTATOR',
+	id,
+	uid
+});
+
+export const startRemoveSpectator = id => {
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid;
+
+		return database
+			.ref(`games/${id}/spectators/${uid}`)
+			.remove()
+			.then(ref => {
+				dispatch(removeSpectator(id, uid));
+			});
+	};
+};
+
 // SET_GAMES
 export const setGames = games => ({
 	type: 'SET_GAMES',
@@ -89,7 +129,8 @@ export const startSetGames = () => {
 					games.push({
 						id: game.key,
 						...game.val(),
-						players: !!game.val().players ? Object.values(game.val().players) : []
+						players: !!game.val().players ? Object.values(game.val().players) : [],
+						spectators: !!game.val().spectators ? Object.values(game.val().spectators) : []
 					});
 				});
 

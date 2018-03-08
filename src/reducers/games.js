@@ -8,7 +8,7 @@ const objectToArray = obj => {
 					id: item[0],
 					...item[1]
 				};
-			})
+		  })
 		: [];
 };
 
@@ -22,13 +22,17 @@ export default (state = gamesReducerDefaultState, action) => {
 		case 'JOIN_GAME':
 			return state.map(game => {
 				if (game.id === action.id) {
-					return {
-						...game,
-						players: [
-							...game.players.filter(player => player !== action.uid),
-							action.uid
-						]
-					};
+					if (!!game.players) {
+						return {
+							...game,
+							players: [...game.players.filter(player => player !== action.uid), action.uid]
+						};
+					} else {
+						return {
+							...game,
+							players: [action.uid]
+						};
+					}
 				} else {
 					return game;
 				}
@@ -39,6 +43,38 @@ export default (state = gamesReducerDefaultState, action) => {
 					return {
 						...game,
 						players: game.players.filter(player => player !== action.uid)
+					};
+				} else {
+					return game;
+				}
+			});
+		case 'ADD_SPECTATOR':
+			return state.map(game => {
+				if (game.id === action.id) {
+					if (!!game.spectators) {
+						return {
+							...game,
+							spectators: [
+								...game.spectators.filter(spectator => spectator !== action.uid),
+								action.uid
+							]
+						};
+					} else {
+						return {
+							...game,
+							spectators: [action.uid]
+						};
+					}
+				} else {
+					return game;
+				}
+			});
+		case 'REMOVE_SPECTATOR':
+			return state.map(game => {
+				if (game.id === action.id) {
+					return {
+						...game,
+						spectators: game.spectators.filter(spectator => spectator !== action.uid)
 					};
 				} else {
 					return game;
@@ -70,10 +106,7 @@ export default (state = gamesReducerDefaultState, action) => {
 				if (game.id === action.gameId) {
 					return {
 						...game,
-						selectedWorkItem: selectedWorkItemReducer(
-							game.selectedWorkItem,
-							action
-						)
+						selectedWorkItem: selectedWorkItemReducer(game.selectedWorkItem, action)
 					};
 				} else {
 					return game;

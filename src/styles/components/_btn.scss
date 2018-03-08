@@ -6,12 +6,27 @@
 	font-size: $l-font-size;
 	font-weight: 300;
 	line-height: 1;
+	margin: 0 0.4em 0 0;
 	padding: $s-size;
 	text-decoration: none;
-	margin: 0 0.4em 0 0;
+	user-select: none;
 	&:disabled {
 		background: $grey;
 	}
+}
+
+.btn-left {
+	@extend .btn;
+	border-top-left-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+	margin: unset;
+}
+
+.btn-right {
+	@extend .btn;
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	margin: unset;
 }
 
 .btn--link {
