@@ -80,6 +80,17 @@ export default (state = gamesReducerDefaultState, action) => {
 					return game;
 				}
 			});
+		case 'UPDATE_PLAYERS':
+			return state.map(game => {
+				if (game.id === action.id) {
+					return {
+						...game,
+						players: action.players
+					};
+				} else {
+					return game;
+				}
+			});
 		case 'SET_GAMES':
 			const workItems = [];
 			return action.games.map(game => ({

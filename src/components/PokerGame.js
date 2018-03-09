@@ -4,11 +4,12 @@ import Deck from './Deck';
 import PokerBoard from './PokerBoard';
 import PokerBoardHeader from './PokerBoardHeader';
 import WorkItemList from './WorkItemList';
-import { startJoinGame } from '../actions/games';
+import { startJoinGame, startUpdatePlayers } from '../actions/games';
 import { startSetSelectedWorkItem } from '../actions/selected-work-item';
 
 export class PokerGame extends React.Component {
 	componentDidMount = () => {
+		this.props.startUpdatePlayers(this.props.game.id);
 		if (!this.props.isSpectator) {
 			this.props.startJoinGame(this.props.game.id);
 		}
@@ -39,6 +40,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	startUpdatePlayers: id => dispatch(startUpdatePlayers(id)),
 	startJoinGame: id => dispatch(startJoinGame(id)),
 	startSetSelectedWorkItem: id => dispatch(startSetSelectedWorkItem(id, -1))
 });

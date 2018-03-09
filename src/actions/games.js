@@ -110,6 +110,22 @@ export const startRemoveSpectator = id => {
 	};
 };
 
+// UPDATE_PLAYERS
+export const updatePlayers = (id, players) => ({
+	type: 'UPDATE_PLAYERS',
+	id,
+	players
+});
+
+export const startUpdatePlayers = id => {
+	console.log('hi');
+	return (dispatch, getState) => {
+		return database.ref(`games/${id}/players`).on('value', snapshot => {
+			dispatch(updatePlayers(id, !!snapshot.val() ? Object.values(snapshot.val()) : []));
+		});
+	};
+};
+
 // SET_GAMES
 export const setGames = games => ({
 	type: 'SET_GAMES',

@@ -41,7 +41,7 @@ const mapStateToProps = (state, props) => {
 			!!game.selectedWorkItem &&
 			!!game.selectedWorkItem.effort &&
 			!!game.players &&
-			Object.keys(game.players).length === Object.keys(game.selectedWorkItem.effort).length &&
+			game.players.length === Object.entries(game.selectedWorkItem.effort).length &&
 			!game.selectedWorkItem.showEffort
 	};
 };
