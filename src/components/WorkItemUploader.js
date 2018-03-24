@@ -54,7 +54,11 @@ export class WorkItemUploader extends React.Component {
 				</div>
 				<div className="upload-message">
 					The format of the excel file has to have two columns: ID, Title. The header row needs to
-					be on the second row, not the first, and all data to be imported should be below it.
+					be on the second row, not the first, and all data to be imported should be below it. The
+					sheet name has to also be Sheet1. (
+					<a className="link" href="/content/WorkItemsTemplate.xlsx" target="_blank">
+						download template
+					</a>)
 				</div>
 			</form>
 		);
