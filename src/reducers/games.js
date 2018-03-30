@@ -25,7 +25,10 @@ export default (state = gamesReducerDefaultState, action) => {
 					if (!!game.players) {
 						return {
 							...game,
-							players: [...game.players.filter(player => player !== action.uid), action.uid]
+							players: [
+								...game.players.filter(player => !player[action.uid]),
+								{ [action.uid]: action.uName }
+							]
 						};
 					} else {
 						return {
@@ -42,7 +45,7 @@ export default (state = gamesReducerDefaultState, action) => {
 				if (game.id === action.id) {
 					return {
 						...game,
-						players: game.players.filter(player => player !== action.uid)
+						players: game.players.filter(player => !player[action.uid])
 					};
 				} else {
 					return game;
@@ -55,8 +58,8 @@ export default (state = gamesReducerDefaultState, action) => {
 						return {
 							...game,
 							spectators: [
-								...game.spectators.filter(spectator => spectator !== action.uid),
-								action.uid
+								...game.spectators.filter(spectator => !spectator[action.uid]),
+								{ [action.uid]: action.uName }
 							]
 						};
 					} else {
@@ -74,7 +77,7 @@ export default (state = gamesReducerDefaultState, action) => {
 				if (game.id === action.id) {
 					return {
 						...game,
-						spectators: game.spectators.filter(spectator => spectator !== action.uid)
+						spectators: game.spectators.filter(spectator => !spectator[action.uid])
 					};
 				} else {
 					return game;

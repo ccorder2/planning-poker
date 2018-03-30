@@ -59,7 +59,9 @@ export const PokerBoard = props => (
 
 const mapStateToProps = (state, props) => ({
 	selectedWorkItem: state.games.find(game => game.id === props.gameId).selectedWorkItem,
-	isPlayer: state.games.find(game => game.id === props.gameId).players.includes(state.auth.uid)
+	isPlayer: state.games
+		.find(game => game.id === props.gameId)
+		.players.some(player => player[state.auth.uid])
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

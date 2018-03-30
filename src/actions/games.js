@@ -31,21 +31,23 @@ export const startAddGame = (gameData = {}) => {
 };
 
 // JOIN_GAME
-export const joinGame = (id, uid) => ({
+export const joinGame = (id, uid, uName) => ({
 	type: 'JOIN_GAME',
 	id,
-	uid
+	uid,
+	uName
 });
 
 export const startJoinGame = id => {
 	return (dispatch, getState) => {
 		const uid = getState().auth.uid;
+		const uName = getState().auth.displayName;
 
 		return database
 			.ref(`games/${id}/players/${uid}`)
-			.set(uid)
+			.set(uName)
 			.then(ref => {
-				dispatch(joinGame(id, uid));
+				dispatch(joinGame(id, uid, uName));
 			});
 	};
 };
@@ -71,21 +73,23 @@ export const startLeaveGame = id => {
 };
 
 // ADD_SPECTATOR
-export const addSpectator = (id, uid) => ({
+export const addSpectator = (id, uid, uName) => ({
 	type: 'ADD_SPECTATOR',
 	id,
-	uid
+	uid,
+	uName
 });
 
 export const startAddSpectator = id => {
 	return (dispatch, getState) => {
 		const uid = getState().auth.uid;
+		const uName = getState().auth.displayName;
 
 		return database
 			.ref(`games/${id}/spectators/${uid}`)
-			.set(uid)
+			.set(uName)
 			.then(ref => {
-				dispatch(addSpectator(id, uid));
+				dispatch(addSpectator(id, uid, uName));
 			});
 	};
 };
@@ -118,10 +122,18 @@ export const updatePlayers = (id, players) => ({
 });
 
 export const startUpdatePlayers = id => {
-	console.log('hi');
 	return (dispatch, getState) => {
 		return database.ref(`games/${id}/players`).on('value', snapshot => {
-			dispatch(updatePlayers(id, !!snapshot.val() ? Object.values(snapshot.val()) : []));
+			dispatch(
+				updatePlayers(
+					id,
+					!!snapshot.val()
+						? Object.entries(snapshot.val()).map(player => {
+								return { [player[0]]: player[1] };
+						  })
+						: []
+				)
+			);
 		});
 	};
 };
@@ -145,8 +157,16 @@ export const startSetGames = () => {
 					games.push({
 						id: game.key,
 						...game.val(),
-						players: !!game.val().players ? Object.values(game.val().players) : [],
-						spectators: !!game.val().spectators ? Object.values(game.val().spectators) : []
+						players: !!game.val().players
+							? Object.entries(game.val().players).map(player => {
+									return { [player[0]]: player[1] };
+							  })
+							: [],
+						spectators: !!game.val().spectators
+							? Object.entries(game.val().spectators).map(spectator => {
+									return { [spectator[0]]: spectator[1] };
+							  })
+							: []
 					});
 				});
 
