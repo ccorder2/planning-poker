@@ -58,9 +58,11 @@ export class PokerGame extends React.Component {
 					<PokerBoard gameId={this.props.game.id} />
 					<Deck gameId={this.props.game.id} />
 					<div>
-						<span title={this.getNames('players')}>Players: {this.props.game.players.length}</span>,{' '}
+						<span title={this.getNames('players')}>
+							Players: {this.props.game.players ? this.props.game.players.length : 0}
+						</span>,{' '}
 						<span title={this.getNames('spectators')}>
-							Spectators: {this.props.game.spectators.length}
+							Spectators: {this.props.game.spectators ? this.props.game.spectators.length : 0}
 						</span>
 					</div>
 				</div>
