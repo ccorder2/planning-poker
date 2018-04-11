@@ -23,7 +23,7 @@ const mapStateToProps = (state, props) => ({
 		!!state.games.find(game => game.id === props.gameId).selectedWorkItem &&
 		!!state.games.find(game => game.id === props.gameId).selectedWorkItem.id &&
 		!!state.games.find(game => game.id === props.gameId).players &&
-		state.games.find(game => game.id === props.gameId).players.includes(state.auth.uid)
+		state.games.find(game => game.id === props.gameId).players.some(item => !!item[state.auth.uid])
 });
 
 export default connect(mapStateToProps)(Deck);
